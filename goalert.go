@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"flag"
+	"fmt"
 	"github.com/mattn/go-gntp"
 	"io"
 	"os"
@@ -14,6 +15,11 @@ var action = flag.String("a", "", "Click action")
 
 func main() {
 	flag.Parse()
+	if flag.NArg() == 0 {
+		fmt.Fprintln(os.Stderr, "Usage: goalert [commands...]")
+		flag.PrintDefaults()
+		return
+	}
 
 	var buf bytes.Buffer
 	cmd := exec.Command(flag.Args()[0], flag.Args()[1:]...)

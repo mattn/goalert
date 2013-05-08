@@ -40,9 +40,14 @@ func main() {
 	})
 	event := "success"
 	title, _ := os.Getwd()
-	text := string(buf.Bytes())
 	if err != nil {
 		event = "failed"
+	}
+	text := ""
+	if buf.Len() > 0 {
+		text = string(buf.Bytes())
+	} else if err != nil {
+		text = err.Error()
 	}
 	callback := *action
 	if callback == "" {
